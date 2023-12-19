@@ -1,9 +1,13 @@
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <>
-      <h1 className="text-3xl font-bold underline">Meta Front-End Developer Capstone</h1>
+      <Routes>
+        <Route path="/" element={<Navbar />} />
+      </Routes>
     </>
   );
 }
