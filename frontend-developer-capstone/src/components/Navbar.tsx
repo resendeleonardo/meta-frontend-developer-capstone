@@ -15,39 +15,39 @@ const Navbar = () => {
           <ul className="flex flex-row gap-10">
             <Link
               to="/"
-              className="mt-2 font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer"
+              className="mt-2 font-semibold leading-6 text-slate-950 hover:text-slate-600 cursor-pointer"
             >
-              Home
+              HOME
             </Link>
             <Link
               to="/"
-              className="mt-2 font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer"
+              className="mt-2 font-semibold leading-6 text-slate-950 hover:text-slate-600 cursor-pointer"
             >
-              About
+              ABOUT
             </Link>
             <Link
               to="/"
-              className="mt-2 font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer"
+              className="mt-2 font-semibold leading-6 text-slate-950 hover:text-slate-600 cursor-pointer"
             >
-              Menu
+              MENU
+            </Link>
+            <Link
+              to="/booking"
+              className="mt-2 font-semibold leading-6 text-slate-950 hover:text-slate-600 cursor-pointer"
+            >
+              RESERVATIONS
             </Link>
             <Link
               to="/"
-              className="mt-2 font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer"
+              className="mt-2 font-semibold leading-6 text-slate-950 hover:text-slate-600 cursor-pointer"
             >
-              Reservations
+              ORDER ONLINE
             </Link>
             <Link
               to="/"
-              className="mt-2 font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer"
+              className="mt-2 font-semibold leading-6 text-slate-950 hover:text-slate-600 cursor-pointer"
             >
-              Order Online
-            </Link>
-            <Link
-              to="/"
-              className="mt-2 font-semibold leading-6 text-indigo-600 hover:text-indigo-500 cursor-pointer"
-            >
-              Login
+              LOGIN
             </Link>
           </ul>
         </div>
