@@ -10,7 +10,7 @@ const CallToAction = ({ to, text }: CallToActionProps) => {
   return (
     <Link
       to={to}
-      className="bg-secondary-color p-3 px-5 font-bold text-black h-12 w-40 rounded-2xl hover:bg-yellow-300"
+      className="flex items-center justify-center bg-secondary-color p-3 font-semibold text-black h-12 w-40 rounded-2xl hover:bg-yellow-300"
     >
       {text}
     </Link>

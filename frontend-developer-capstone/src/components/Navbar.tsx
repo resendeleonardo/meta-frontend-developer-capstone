@@ -8,7 +8,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="flex flex-row items-center justify-between py-4 px-5 sm:px-20 bg-white">
+      <nav className="flex flex-row items-center justify-between py-4 px-5 sm:px-20 2xl:px-72 bg-white">
         {/* Desktop Navigation Menu */}
         <div>
           <Link to="/">
@@ -21,37 +21,37 @@ const Navbar = () => {
               to="/"
               className="mt-2 font-semibold leading-6 text-slate-950 hover:text-slate-600 cursor-pointer"
             >
-              HOME
+              Home
             </Link>
             <Link
               to="/"
               className="mt-2 font-semibold leading-6 text-slate-950 hover:text-slate-600 cursor-pointer"
             >
-              ABOUT
+              About
             </Link>
             <Link
               to="/"
               className="mt-2 font-semibold leading-6 text-slate-950 hover:text-slate-600 cursor-pointer"
             >
-              MENU
+              Menu
             </Link>
             <Link
               to="/booking"
               className="mt-2 font-semibold leading-6 text-slate-950 hover:text-slate-600 cursor-pointer"
             >
-              RESERVATIONS
+              Reservations
             </Link>
             <Link
               to="/"
               className="mt-2 font-semibold leading-6 text-slate-950 hover:text-slate-600 cursor-pointer"
             >
-              ORDER ONLINE
+              Oorder Online
             </Link>
             <Link
               to="/"
               className="mt-2 font-semibold leading-6 text-slate-950 hover:text-slate-600 cursor-pointer"
             >
-              LOGIN
+              LogIn
             </Link>
           </ul>
         </div>

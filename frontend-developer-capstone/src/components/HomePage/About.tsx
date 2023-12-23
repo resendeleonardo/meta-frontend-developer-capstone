@@ -6,7 +6,7 @@ import chef from "../../assets/restaurant-chef-B.jpg";
 const About = () => {
   return (
     <>
-        <div className="bg-white h-3/4 py-16 px-5 sm:px-20 xl:px-72">
+        <div className="bg-white h-3/4 py-16 px-5 sm:px-20 2xl:px-72">
             <div className="grid grid-cols-2">
                 <div>
                     <h2 className="text-black text-3xl">Little Lemon</h2>
