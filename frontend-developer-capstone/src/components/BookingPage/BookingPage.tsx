@@ -1,11 +1,15 @@
 import React from "react";
 import Header from "../Header";
+import Footer from "../Footer";
+import Reservation from "./Reservation";
 
 const BookingPage = () => {
   return (
     <>
       <Header />
-      <div>BookingPage</div>
+      <div className="h-[72px]"></div>
+      <Reservation />
+      <Footer />
     </>
   );
 };
