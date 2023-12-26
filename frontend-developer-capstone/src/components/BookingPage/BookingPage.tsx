@@ -1,14 +1,14 @@
 import React from "react";
 import Header from "../Header";
 import Footer from "../Footer";
-import Reservation from "./Reservation";
+import BookingForm from "./BookingForm";
 
 const BookingPage = () => {
   return (
     <>
       <Header />
       <div className="h-[72px]"></div>
-      <Reservation />
+      <BookingForm />
       <Footer />
     </>
   );
