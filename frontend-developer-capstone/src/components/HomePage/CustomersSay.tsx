@@ -1,6 +1,7 @@
 import React from "react";
 import ReviewCard from "./ReviewCard";
-
+import userMale1 from "../../assets/john-doe1.jpg";
+import userFemale1 from "../../assets/jane-doe1.jpg";
 const CustomersSay = () => {
   return (
     <>
@@ -10,10 +11,10 @@ const CustomersSay = () => {
       </div>
       <div className="grid lg:grid-cols-4 mt-12 gap-5">
         {/* Review Cards */}
-        <ReviewCard rating="★★★★★" userPhoto="/restaurant.jpg" userName="John Doe" review="The best restaurant!" />
-        <ReviewCard rating="★★★☆☆" userPhoto="/restaurant.jpg" userName="John Doe" review="The best restaurant!" />
-        <ReviewCard rating="★★★★★" userPhoto="/restaurant.jpg" userName="John Doe" review="The best restaurant!" />
-        <ReviewCard rating="★★★★☆" userPhoto="/restaurant.jpg" userName="John Doe" review="The best restaurant!" />
+        <ReviewCard rating="★★★★★" userPhoto={userMale1} userName="John Doe" review="The best restaurant!" />
+        <ReviewCard rating="★★★☆☆" userPhoto={userFemale1} userName="Jane Doe" review="The best restaurant!" />
+        <ReviewCard rating="★★★★★" userPhoto={userMale1} userName="John Doe" review="The best restaurant!" />
+        <ReviewCard rating="★★★★☆" userPhoto={userFemale1} userName="Jane Doe" review="The best restaurant!" />
       </div>
     </div>
     </>

@@ -27,7 +27,7 @@ const Card = ({ imageUrl, title, price, description }: CardProps) => {
             </div>
           </div>
           <div className="flex flex-row gap-2 mt-auto px-4 pb-4">
-            <button className="text-base font-bold">Order a delivery</button>
+            <button className="text-base font-bold hover:underline">Order a delivery</button>
             <TruckIcon className="h-6 w-6" />
           </div>
         </div>

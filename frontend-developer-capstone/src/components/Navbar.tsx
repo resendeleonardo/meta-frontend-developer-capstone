@@ -45,7 +45,7 @@ const Navbar = () => {
               to="/"
               className="mt-2 font-semibold leading-6 text-slate-950 hover:text-slate-600 cursor-pointer"
             >
-              Oorder Online
+              Order Online
             </Link>
             <Link
               to="/"
