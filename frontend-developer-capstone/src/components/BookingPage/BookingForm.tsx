@@ -1,23 +1,27 @@
 import React, { useState } from "react";
-// import { MinusCircleIcon } from "@heroicons/react/24/outline";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 
-const BookingForm = () => {
+type BookingFormProps = {
+  availableTimes: string[];
+  onDateSelect: (selectedDate: string) => void;
+  onSubmit: (formData: FormData) => void;
+}
+
+const BookingForm = ({ availableTimes, onDateSelect, onSubmit }: BookingFormProps) => {
   const [isConfirm, setIsConfirm] = useState(false);
-  const [confirmed, setConfirmed] = useState(false);
-  const [numberOfDiners, setNumberOfDiners] = useState(2);
-  // const [errorMessage, setErrorMessage] = useState("");
-  const [time, setTime] = useState("");
+  
   const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [numberOfDiners, setNumberOfDiners] = useState(2);
   const [occasion, setOccasion] = useState("");
 
-  const availableTimes = ["18:00", "19:00", "20:00", "21:00"];
   const occasionsList = ["Birthday", "Anniversary"];
 
   // Handle Date
   const handleDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newDate = e.target.value;
     setDate(newDate);
+    onDateSelect(newDate);
   };
   // Handle Time
   const handleTime = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -36,14 +40,31 @@ const BookingForm = () => {
   };
 
   // Handle Submit
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted:", {
-      numberOfDiners,
-      time,
+    
+    // console.log("Form submitted:", {
+    //   numberOfDiners,
+    //   time,
+    //   date,
+    //   occasion,
+    // });
+
+    // Create FormData object and populate it with form data
+    const formDataObject = {
       date,
+      time,
+      numberOfDiners,
       occasion,
+    };
+    const formData = new FormData();
+    Object.entries(formDataObject).forEach(([key, value]) => {
+      formData.append(key, String(value));
     });
+
+    // Pass the form data to the parent component for submission
+    onSubmit(formData);
+
     // Send data to server...
   };
 
@@ -80,12 +101,12 @@ const BookingForm = () => {
                 required={true}
               >
                 <option hidden>Select a time</option>
-                {availableTimes.map((item) => (
+                {availableTimes.map((time, index) => (
                   <option
-                    key={item}
+                    key={index}
                     className="text-2xl p-1 bg-secondary-color text-black rounded-xl cursor-pointer hover:bg-gray-800 hover:text-white}"
                   >
-                    {item}
+                    {time}
                   </option>
                 ))}
               </select>
@@ -147,65 +168,9 @@ const BookingForm = () => {
               onClick={() => setIsConfirm(!isConfirm)}
             ></div>
             <div className="fixed top-48 h-72 md:h-96 md:w-96 bg-white p-4 rounded-xl flex flex-col items-center justify-center">
-              {!confirmed ? (
-                <>
-                  <div className="flex flex-col gap-4">
-                    <h2 className="text-black font-semibold text-2xl mb-5">
-                      Confirm your booking
-                    </h2>
-                    <div>
-                      <label htmlFor="name" className="text-black">
-                        Name{" "}
-                      </label>
-                      <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        className="rounded-xl p-2"
-                        autoComplete="true"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="text-black">
-                        Email{" "}
-                      </label>
-                      <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        className="rounded-xl p-2"
-                        autoComplete="true"
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-row gap-5">
-                    <div className="mt-10">
-                      <button
-                        className="bg-secondary-color p-3 text-black rounded-xl flex items-center hover:bg-gray-800 hover:text-white"
-                        onClick={() => setIsConfirm(!isConfirm)}
-                      >
-                        Edit Booking
-                      </button>
-                    </div>
-                    <div className="mt-10">
-                      <button
-                        className="bg-secondary-color p-3 text-black rounded-xl flex items-center hover:bg-gray-800 hover:text-white"
-                        onClick={() => setConfirmed(!confirmed)}
-                      >
-                        Confirm
-                      </button>
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <CheckCircleIcon className="text-primary-color h-24 w-24 mb-10" />
-                  <h2 className="text-black">
-                    YOUR RESERVATION HAS BEEN CONFIRMED
-                  </h2>
-                  <p className="text-black">Check your email!</p>
-                </>
-              )}
+              <CheckCircleIcon className="text-primary-color h-24 w-24 mb-10" />
+              <h2 className="text-black">YOUR RESERVATION HAS BEEN CONFIRMED</h2>
+              <p className="text-black">Check your email!</p>
             </div>
           </>
         )}
