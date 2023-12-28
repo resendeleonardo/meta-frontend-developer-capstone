@@ -1,51 +1,38 @@
 import React, { useState } from "react";
-import { MinusCircleIcon } from "@heroicons/react/24/outline";
-import { PlusCircleIcon, CheckCircleIcon } from "@heroicons/react/24/solid";
-// import CallToAction from "../HomePage/CallToAction";
-import ConfirmBooking from "./ConfirmBooking";
+// import { MinusCircleIcon } from "@heroicons/react/24/outline";
+import { CheckCircleIcon } from "@heroicons/react/24/solid";
 
 const BookingForm = () => {
   const [isConfirm, setIsConfirm] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
   const [numberOfDiners, setNumberOfDiners] = useState(2);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [selectedTime, setSelectedTime] = useState("");
-  const [selectedDate, setSelectedDate] = useState("");
+  // const [errorMessage, setErrorMessage] = useState("");
+  const [time, setTime] = useState("");
+  const [date, setDate] = useState("");
   const [occasion, setOccasion] = useState("");
 
-  const times = ["18:00", "19:00", "20:00", "21:00"];
-
-  // Occasions
-  const occasions = ["Birthday", "Anniversary"];
-
-  // Handle Number of Diners
-  const handleMinusClick = () => {
-    if (numberOfDiners > 2) {
-      setNumberOfDiners((prev) => prev - 1);
-      setErrorMessage("");
-    } else {
-      setErrorMessage("The minimum number of diners is 2.");
-    }
-  };
-  const handlePlusClick = () => {
-    if (numberOfDiners < 10) {
-      setNumberOfDiners((prev) => prev + 1);
-      setErrorMessage("");
-    } else {
-      setErrorMessage("The maximum number of diners is 10.");
-    }
-  };
+  const availableTimes = ["18:00", "19:00", "20:00", "21:00"];
+  const occasionsList = ["Birthday", "Anniversary"];
 
   // Handle Date
-  const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const date = event.target.value;
-    setSelectedDate(date);
+  const handleDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newDate = e.target.value;
+    setDate(newDate);
   };
-
+  // Handle Time
+  const handleTime = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newTime = e.target.value;
+    setTime(newTime);
+  };
+  // Handle Number of Diners
+  const handleDiners = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const diners = e.target.value;
+    setNumberOfDiners(Number(diners));
+  };
   // Handle Occasion
-  const handleOccasion = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedOccasion = event.target.value;
-    setOccasion(selectedOccasion);
+  const handleOccasion = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const newOccasion = e.target.value;
+    setOccasion(newOccasion);
   };
 
   // Handle Submit
@@ -53,8 +40,8 @@ const BookingForm = () => {
     e.preventDefault();
     console.log("Form submitted:", {
       numberOfDiners,
-      selectedTime,
-      selectedDate,
+      time,
+      date,
       occasion,
     });
     // Send data to server...
@@ -62,133 +49,167 @@ const BookingForm = () => {
 
   return (
     <>
-    <div className="h-[650px] bg-primary-color pt-12 md:pt-0 px-5 sm:px-20 2xl:px-72 md:flex md:flex-col md:items-center md:justify-center">
-      <form onSubmit={handleSubmit}>
-        {/* Example -- Will be changed later!! */}
-          {!isConfirm ? (
-            <>
-              <div>
-                <h2 className="text-3xl mb-5">Reserve a Table</h2>
-              </div>
-              <h2 className="text-base">How many diners?</h2>
-              <div className="flex flex-row gap-5 mt-4">
-                <p className="text-2xl leading-5 w-28">
-                  {numberOfDiners} people
-                </p>
-                <div className="flex flex-row gap-2">
-                  <MinusCircleIcon
-                    className="h-6 w-6 cursor-pointer mt-auto hover:text-gray-800"
-                    onClick={handleMinusClick}
-                  />
-                  <PlusCircleIcon
-                    className="h-6 w-6 cursor-pointer mt-auto hover:text-gray-800"
-                    onClick={handlePlusClick}
-                  />
-                </div>
-              </div>
-              {errorMessage && <p className="text-red-500">{errorMessage}</p>}
-              <div className="mt-10">
-                <h2 className="text-base md:flex md:flex-col md:items-center md:justify-center">
-                  Select a Time
-                </h2>
-                <div className="flex flex-row mt-4 gap-5">
-                  {times.map((item) => (
-                    <p
-                      key={item}
-                      className={`text-2xl p-1 bg-secondary-color text-black rounded-xl cursor-pointer hover:bg-gray-800 hover:text-white ${
-                        selectedTime === item ? "bg-gray-800 text-white" : ""
-                      }`}
-                      onClick={() => setSelectedTime(item)}
-                    >
-                      {item}
-                    </p>
-                  ))}
-                </div>
-              </div>
-              <div className="mt-10">
-                <h2 className="text-base md:flex md:flex-col md:items-center md:justify-center">
-                  Reservation Date
-                </h2>
-                <div className="flex flex-row mt-4 gap-5">
-                  {/* <p className="text-2xl">{selectedDate || "Select date"}</p> */}
-                  <input
-                    type="date"
-                    value={selectedDate}
-                    onChange={handleDateChange}
-                    className="p-2 rounded-xl cursor-pointer"
-                  />
-                  {/* <p className="text-2xl">Fri, 29 Dec</p>
-            <p className="text-secondary-color text-base font-semibold cursor-pointer leading-9">
-              PICK DATE
-            </p> */}
-                </div>
-              </div>
-              <div className="mt-10">
-                <h2 className="text-base md:flex md:flex-col md:items-center md:justify-center">
-                  Occasion
-                </h2>
-                <div className="mt-4">
-                  <select
-                    className="p-2 rounded-xl cursor-pointer"
-                    value={occasion}
-                    onChange={handleOccasion}
+      <section className="h-[650px] bg-primary-color pt-12 md:pt-5 px-5 sm:px-20 2xl:px-72 md:flex md:flex-col md:items-center">
+        <div className="md:border md:p-4 md:rounded-2xl md:w-96">
+          <div>
+            <h2 className="text-3xl mb-5">Reserve a Table</h2>
+          </div>
+          {/* Booking Form */}
+          <form onSubmit={handleSubmit}>
+            <div className="mt-5 flex flex-col items-start gap-5">
+              <label htmlFor="date">Reservation date</label>
+              <input
+                type="date"
+                name="date"
+                id="date"
+                value={date}
+                onChange={handleDate}
+                className="p-2 rounded-xl cursor-pointer"
+                required={true}
+              />
+            </div>
+
+            <div className="mt-5 flex flex-col items-start gap-5">
+              <label htmlFor="time">Select a time</label>
+              <select
+                name="time"
+                id="time"
+                value={time}
+                onChange={handleTime}
+                className="p-2 rounded-xl cursor-pointer"
+                required={true}
+              >
+                <option hidden>Select a time</option>
+                {availableTimes.map((item) => (
+                  <option
+                    key={item}
+                    className="text-2xl p-1 bg-secondary-color text-black rounded-xl cursor-pointer hover:bg-gray-800 hover:text-white}"
                   >
-                    {occasions.map((occasion) => (
-                      <option key={occasion}>
-                        {occasion}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              <div className="mt-10">
-                <button
-                  onClick={() => setIsConfirm(!isConfirm)}
-                  className="bg-secondary-color p-3 text-black rounded-xl flex items-center hover:bg-gray-800 hover:text-white"
-                >
-                  Book Table
-                </button>
-              </div>
-              {/* <div className="mt-10">
-            <CallToAction to="/" text="Book Table" />
-                    </div> */}
-            </>
-          ) : (
-            <>
-                <div className="flex flex-col items-center justify-center">
-              <ConfirmBooking />
-              <div className="flex flex-row gap-4">
-                <button
-                    className="bg-secondary-color p-3 text-black rounded-xl flex items-center hover:bg-gray-800 hover:text-white"
-                    onClick={() => setIsConfirm(!isConfirm)} 
-                >
-                    Back
-                </button>
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="mt-5 flex flex-col items-start gap-5">
+              <label htmlFor="diners">How many diners?</label>
+              <input
+                type="number"
+                name="diners"
+                id="diners"
+                value={numberOfDiners}
+                min={2}
+                max={10}
+                onChange={handleDiners}
+                className="p-2 rounded-xl cursor-pointer"
+                required={true}
+              />
+            </div>
+
+            <div className="mt-5 flex flex-col items-start gap-5">
+              <label htmlFor="occasion">Occasion</label>
+              <select
+                name="occasion"
+                id="occasion"
+                value={occasion}
+                onChange={handleOccasion}
+                className="p-2 rounded-xl cursor-pointer"
+                required={true}
+              >
+                <option hidden>Select an occasion</option>
+                {occasionsList.map((item) => (
+                  <option
+                    key={item}
+                    className="text-2xl p-1 bg-secondary-color text-black rounded-xl cursor-pointer hover:bg-gray-800 hover:text-white}"
+                  >
+                    {item}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="mt-10 flex flex-row items-end md:justify-center">
               <button
-                type="submit"
-                onClick={() => setConfirmed(!confirmed)}
+                onClick={() => setIsConfirm(!isConfirm)}
                 className="bg-secondary-color p-3 text-black rounded-xl flex items-center hover:bg-gray-800 hover:text-white"
               >
-                Confirm
+                Book Table
               </button>
-              </div>
-                </div>
-            </>
-          )}
-      </form>
-      {confirmed && (
-        <>
-            <div
-                className="fixed top-0 right-0 bottom-0 left-0 bg-black opacity-50 flex flex-col items-center justify-center"
-              ></div>
-            <div className="fixed top-48 h-72 md:h-96 md:w-96 bg-white p-4 rounded-xl flex flex-col items-center justify-center">
-                    <CheckCircleIcon className="text-primary-color h-24 w-24 mb-10" />
-                    <h2 className="text-black">YOUR RESERVATION HAS BEEN CONFIRMED</h2>
-                    <p className="text-black">Check your email!</p>
             </div>
-        </>
-      )}
-    </div>
+          </form>
+        </div>
+
+        {/* Confirmation Modal */}
+        {isConfirm && (
+          <>
+            <div
+              className="fixed top-0 right-0 bottom-0 left-0 bg-black opacity-50 flex flex-col items-center justify-center"
+              onClick={() => setIsConfirm(!isConfirm)}
+            ></div>
+            <div className="fixed top-48 h-72 md:h-96 md:w-96 bg-white p-4 rounded-xl flex flex-col items-center justify-center">
+              {!confirmed ? (
+                <>
+                  <div className="flex flex-col gap-4">
+                    <h2 className="text-black font-semibold text-2xl mb-5">
+                      Confirm your booking
+                    </h2>
+                    <div>
+                      <label htmlFor="name" className="text-black">
+                        Name{" "}
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        id="name"
+                        className="rounded-xl p-2"
+                        autoComplete="true"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="text-black">
+                        Email{" "}
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        className="rounded-xl p-2"
+                        autoComplete="true"
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-row gap-5">
+                    <div className="mt-10">
+                      <button
+                        className="bg-secondary-color p-3 text-black rounded-xl flex items-center hover:bg-gray-800 hover:text-white"
+                        onClick={() => setIsConfirm(!isConfirm)}
+                      >
+                        Edit Booking
+                      </button>
+                    </div>
+                    <div className="mt-10">
+                      <button
+                        className="bg-secondary-color p-3 text-black rounded-xl flex items-center hover:bg-gray-800 hover:text-white"
+                        onClick={() => setConfirmed(!confirmed)}
+                      >
+                        Confirm
+                      </button>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <CheckCircleIcon className="text-primary-color h-24 w-24 mb-10" />
+                  <h2 className="text-black">
+                    YOUR RESERVATION HAS BEEN CONFIRMED
+                  </h2>
+                  <p className="text-black">Check your email!</p>
+                </>
+              )}
+            </div>
+          </>
+        )}
+      </section>
     </>
   );
 };
