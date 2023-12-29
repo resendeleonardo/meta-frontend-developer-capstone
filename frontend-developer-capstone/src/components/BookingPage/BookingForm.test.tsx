@@ -13,11 +13,27 @@ const initialProps = {
   onSubmit: mockOnSubmit,
 };
 
+// Data to Fill in when needed
+type FormData = {
+  [label: string]: string;
+}
+const formData: FormData = {
+  'Reservation date': '2024-01-01',
+  'Select a time': '19:00',
+  'How many diners?': '4',
+  'Occasion': 'Birthday',
+};
+const fillInFormFields = (formData: FormData) => {
+  Object.entries(formData).forEach(([label, value]) => {
+    fireEvent.change(screen.getByLabelText(label), { target: { value } });
+  });
+};
+
 describe("BookingForm", () => {
+  // Test if form is rendered correctly
   it("renders BookingForm component correctly", () => {
     render(<BookingForm {...initialProps} />);
 
-    // Check if form is rendered correctly
     expect(screen.getByLabelText(/Reservation date/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Select a time/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/How many diners?/i)).toBeInTheDocument();
@@ -25,40 +41,43 @@ describe("BookingForm", () => {
     expect(screen.getByText(/Book Table/i)).toBeInTheDocument();
   });
 
-  // TODO: Test Form Submission
-  // it("submits the form with valid data", () => {
-  //   render(<BookingForm {...initialProps} />);
-
-  //   // Fill in the form with valid data
-  //   fireEvent.change(screen.getByLabelText(/Reservation date/i), {
-  //     target: { value: "2024-01-01" },
-  //   });
-  //   fireEvent.change(screen.getByLabelText(/Select a time/i), {
-  //     target: { value: "17:00" },
-  //   });
-  //   fireEvent.change(screen.getByLabelText(/How many diners?/i), {
-  //     target: { value: "4" },
-  //   });
-  //   fireEvent.change(screen.getByLabelText(/Occasion/i), {
-  //     target: { value: "Birthday" },
-  //   });
-
-  //   // Submit the form
-  //   fireEvent.click(screen.getByText(/Book Table/i));
-
-  //   // Check if the onSubmit function is called with the correct data
-  //   expect(mockOnSubmit).toHaveBeenCalledWith(
-  //     expect.objectContaining({
-  //       date: "2024-01-01",
-  //       time: "17:00",
-  //       numberOfDiners: 4,
-  //       occasion: "Birthday",
-  //     })
-  //   );
-  // });
-
-  it("displays confirmation modal when 'Book Table' is clicked", () => {
+  // Test for validations in the BookingForm
+  it('display validation errors and prevent submission if form fields are empty', () => {
     render(<BookingForm {...initialProps} />);
+
+    // Submit the form without filling in any fields
+    fireEvent.click(screen.getByText('Book Table'));
+
+    // Check if the error messages are displayed for each field in the BookingForm
+    expect(screen.getByText('Please select a date.')).toBeInTheDocument();
+    expect(screen.getByText('Please select a time.')).toBeInTheDocument();
+    // expect(getByText('Please enter the number of diners.')).toBeInTheDocument(); // as the initial state is set there are no error messages
+    expect(screen.getByText('Please select an occasion.')).toBeInTheDocument();
+
+    // Ensure that the onSubmit function is not called
+    expect(mockOnSubmit).not.toHaveBeenCalled();
+  });
+
+  // Test BookingForm Submission
+  it('submit the form when all fields are filled in', () => {
+    render(<BookingForm {...initialProps} />);
+
+    // Fill in the form fields with defined values
+    fillInFormFields(formData);
+
+    // Submit the form
+    fireEvent.click(screen.getByText('Book Table'));
+
+    // Validate that onSubmit function is called with the correct data
+    expect(mockOnSubmit).toHaveBeenCalledWith(expect.any(FormData));
+  });
+
+  // Test if the confirmation modal is displayed
+  it("displays confirmation modal when 'Book Table' button is clicked", () => {
+    render(<BookingForm {...initialProps} />);
+
+    // Fill in the form fields with defined values
+    fillInFormFields(formData);
 
     // Click the 'Book Table' button
     fireEvent.click(screen.getByText(/Book Table/i));
@@ -68,8 +87,12 @@ describe("BookingForm", () => {
     expect(screen.getByText(/Check your email!/i)).toBeInTheDocument();
   });
 
+  // Test if we are able to close the confirmation modal
   it("closes the confirmation modal when clicked outside", () => {
     render(<BookingForm {...initialProps} />);
+
+    // Fill in the form fields with defined values
+    fillInFormFields(formData);
 
     // Click the 'Book Table' button to open the confirmation modal
     fireEvent.click(screen.getByText(/Book Table/i));

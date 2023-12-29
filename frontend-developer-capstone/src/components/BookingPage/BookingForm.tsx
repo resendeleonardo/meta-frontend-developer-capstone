@@ -86,7 +86,7 @@ const BookingForm = ({
       // Show confirmation modal
       setIsConfirm(true);
     } else {
-      // Form is not valid, handle accordingly (e.g., display error messages)
+      // Form is not valid -- display error messages
       console.log("Invalid data!");
     }
   };
@@ -99,7 +99,7 @@ const BookingForm = ({
             <h2 className="text-3xl mb-5">Reserve a Table</h2>
           </div>
           {/* Booking Form */}
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} noValidate>
             <div className="mt-5 flex flex-col items-start gap-5">
               <label htmlFor="date">Reservation date</label>
               <input
