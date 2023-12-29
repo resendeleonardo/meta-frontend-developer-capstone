@@ -154,6 +154,7 @@ const BookingForm = ({
             <div
               className="fixed top-0 right-0 bottom-0 left-0 bg-black opacity-50 flex flex-col items-center justify-center"
               onClick={() => setIsConfirm(!isConfirm)}
+              data-testid="confirmation-modal"
             ></div>
             <div className="fixed top-48 h-72 md:h-96 md:w-96 bg-white p-4 rounded-xl flex flex-col items-center justify-center">
               <CheckCircleIcon className="text-primary-color h-24 w-24 mb-10" />
