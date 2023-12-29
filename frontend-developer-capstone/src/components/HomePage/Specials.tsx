@@ -8,8 +8,8 @@ import lemondessert from "../../assets/lemon-dessert.jpg";
 const Specials = () => {
   return (
     <>
-      <section>
-        <div className="pt-16 pb-16 px-5 sm:px-20 2xl:px-72 bg-white ">
+      <section id="menu">
+        <div className="pt-16 pb-16 px-5 sm:px-20 2xl:px-72 bg-white">
           <div className="flex flex-row items-center justify-between">
             <h2 className="text-3xl text-black font-semibold">This weeks specials!</h2>
             <CallToAction to="/" text="Online Menu" />

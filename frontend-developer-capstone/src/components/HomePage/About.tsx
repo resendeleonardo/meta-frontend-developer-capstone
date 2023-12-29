@@ -4,11 +4,11 @@ import chef from "../../assets/restaurant-chef-B.jpg";
 const About = () => {
   return (
     <>
-        <div className="bg-white h-3/4 py-16 px-5 sm:px-20 2xl:px-72">
+        <div className="bg-white h-3/4 py-16 px-5 sm:px-20 2xl:px-72" id="about">
             <div className="grid grid-cols-2">
                 <div>
-                    <h2 className="text-black text-3xl">Little Lemon</h2>
-                    <h3 className="text-black text-xl">Chicago</h3>
+                    <h2 className="text-3xl md:text-5xl text-primary-color font-bold">Little Lemon</h2>
+                    <h3 className="text-black text-xl font-semibold mt-2">Chicago</h3>
                     <p className="text-black mt-8 w-3/4">
                         We are a family owned Mediterranean restaurant, 
                         focused on traditional recipes served with a modern twist.
