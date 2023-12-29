@@ -1,4 +1,3 @@
-import React from "react";
 import { TruckIcon } from "@heroicons/react/24/solid";
 
 type CardProps = {

@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import Header from "../Header";
 import Footer from "../Footer";
 import BookingForm from "./BookingForm";

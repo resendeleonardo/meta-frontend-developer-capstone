@@ -45,7 +45,8 @@ export const fetchAPI = async (date: string): Promise<string[]> => {
 };
 
 // TODO: Fix formData...
-export const submitAPI = async (formData: FormData): Promise<boolean> => {
+// export const submitAPI = async (formData: FormData): Promise<boolean> => {...}
+export const submitAPI = async (): Promise<boolean> => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   // Simulate a successful submission

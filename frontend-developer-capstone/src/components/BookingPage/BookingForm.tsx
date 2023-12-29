@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 
 type BookingFormProps = {
@@ -180,6 +180,7 @@ const BookingForm = ({
 
             <div className="mt-10 flex flex-row items-end md:justify-center">
               <button
+                aria-label="On Click"
                 className="bg-secondary-color p-3 text-black rounded-xl flex items-center hover:bg-gray-800 hover:text-white"
               >
                 Book Table

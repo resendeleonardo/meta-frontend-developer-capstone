@@ -1,4 +1,3 @@
-import React from "react";
 import restaurantfood from "../../assets/restauranfood.jpg";
 import CallToAction from "./CallToAction";
 

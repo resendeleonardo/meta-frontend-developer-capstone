@@ -1,5 +1,3 @@
-import React from "react";
-
 import restaurantfood from "../../assets/restauranfood.jpg";
 import chef from "../../assets/restaurant-chef-B.jpg";
 
