@@ -17,8 +17,31 @@ const BookingForm = ({
   const [time, setTime] = useState("");
   const [numberOfDiners, setNumberOfDiners] = useState(2);
   const [occasion, setOccasion] = useState("");
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   const occasionsList = ["Birthday", "Anniversary"];
+
+  const validateForm = () => {
+    const newErrors: { [key: string]: string } = {};
+
+    if (!date) {
+      newErrors.date = "Please select a date.";
+    }
+    if (!time) {
+      newErrors.time = "Please select a time.";
+    }
+    if (!numberOfDiners) {
+      newErrors.numberOfDiners = "Please enter the number of diners.";
+    }
+    if (!occasion) {
+      newErrors.occasion = "Please select an occasion.";
+    }
+
+    setErrors(newErrors);
+
+    // Check if there are no errors
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newDate = e.target.value;
@@ -40,25 +63,37 @@ const BookingForm = ({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formDataObject = {
-      date,
-      time,
-      numberOfDiners,
-      occasion,
-    };
-    const formData = new FormData();
-    Object.entries(formDataObject).forEach(([key, value]) => {
-      formData.append(key, String(value));
-    });
-    // Pass the form data to the parent component for submission
-    onSubmit(formData);
 
-    // Send data to server or anything else here...
+    // Chech if the form is valid
+    const isValid = validateForm();
+
+    if (isValid) {
+      const formDataObject = {
+        date,
+        time,
+        numberOfDiners,
+        occasion,
+      };
+      const formData = new FormData();
+      Object.entries(formDataObject).forEach(([key, value]) => {
+        formData.append(key, String(value));
+      });
+      // Pass the form data to the parent component for submission
+      onSubmit(formData);
+  
+      // Send data to server or anything else here...
+
+      // Show confirmation modal
+      setIsConfirm(true);
+    } else {
+      // Form is not valid, handle accordingly (e.g., display error messages)
+      console.log("Invalid data!");
+    }
   };
 
   return (
     <>
-      <section className="h-[650px] bg-primary-color pt-12 md:pt-5 px-5 sm:px-20 2xl:px-72 md:flex md:flex-col md:items-center">
+      <section className="h-auto bg-primary-color pt-12 md:pt-5 pb-5 px-5 sm:px-20 2xl:px-72 md:flex md:flex-col md:items-center">
         <div className="md:border md:p-4 md:rounded-2xl md:w-96">
           <div>
             <h2 className="text-3xl mb-5">Reserve a Table</h2>
@@ -76,6 +111,7 @@ const BookingForm = ({
                 className="p-2 rounded-xl cursor-pointer"
                 required={true}
               />
+              {errors.date && <div className="text-red-500">{errors.date}</div>}
             </div>
 
             <div className="mt-5 flex flex-col items-start gap-5">
@@ -98,6 +134,7 @@ const BookingForm = ({
                   </option>
                 ))}
               </select>
+              {errors.time && <div className="text-red-500">{errors.time}</div>}
             </div>
 
             <div className="mt-5 flex flex-col items-start gap-5">
@@ -113,6 +150,9 @@ const BookingForm = ({
                 className="p-2 rounded-xl cursor-pointer"
                 required={true}
               />
+              {errors.numberOfDiners && (
+                <div className="text-red-500">{errors.numberOfDiners}</div>
+              )}
             </div>
 
             <div className="mt-5 flex flex-col items-start gap-5">
@@ -135,11 +175,11 @@ const BookingForm = ({
                   </option>
                 ))}
               </select>
+              {errors.occasion && <div className="text-red-500">{errors.occasion}</div>}
             </div>
 
             <div className="mt-10 flex flex-row items-end md:justify-center">
               <button
-                onClick={() => setIsConfirm(!isConfirm)}
                 className="bg-secondary-color p-3 text-black rounded-xl flex items-center hover:bg-gray-800 hover:text-white"
               >
                 Book Table
