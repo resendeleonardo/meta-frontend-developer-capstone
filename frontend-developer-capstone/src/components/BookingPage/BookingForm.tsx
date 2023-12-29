@@ -5,11 +5,14 @@ type BookingFormProps = {
   availableTimes: string[];
   onDateSelect: (selectedDate: string) => void;
   onSubmit: (formData: FormData) => void;
-}
+};
 
-const BookingForm = ({ availableTimes, onDateSelect, onSubmit }: BookingFormProps) => {
+const BookingForm = ({
+  availableTimes,
+  onDateSelect,
+  onSubmit,
+}: BookingFormProps) => {
   const [isConfirm, setIsConfirm] = useState(false);
-  
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [numberOfDiners, setNumberOfDiners] = useState(2);
@@ -17,40 +20,26 @@ const BookingForm = ({ availableTimes, onDateSelect, onSubmit }: BookingFormProp
 
   const occasionsList = ["Birthday", "Anniversary"];
 
-  // Handle Date
   const handleDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newDate = e.target.value;
     setDate(newDate);
     onDateSelect(newDate);
   };
-  // Handle Time
   const handleTime = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newTime = e.target.value;
     setTime(newTime);
   };
-  // Handle Number of Diners
   const handleDiners = (e: React.ChangeEvent<HTMLInputElement>) => {
     const diners = e.target.value;
     setNumberOfDiners(Number(diners));
   };
-  // Handle Occasion
   const handleOccasion = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newOccasion = e.target.value;
     setOccasion(newOccasion);
   };
 
-  // Handle Submit
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    // console.log("Form submitted:", {
-    //   numberOfDiners,
-    //   time,
-    //   date,
-    //   occasion,
-    // });
-
-    // Create FormData object and populate it with form data
     const formDataObject = {
       date,
       time,
@@ -61,11 +50,10 @@ const BookingForm = ({ availableTimes, onDateSelect, onSubmit }: BookingFormProp
     Object.entries(formDataObject).forEach(([key, value]) => {
       formData.append(key, String(value));
     });
-
     // Pass the form data to the parent component for submission
     onSubmit(formData);
 
-    // Send data to server...
+    // Send data to server or anything else here...
   };
 
   return (
@@ -169,7 +157,9 @@ const BookingForm = ({ availableTimes, onDateSelect, onSubmit }: BookingFormProp
             ></div>
             <div className="fixed top-48 h-72 md:h-96 md:w-96 bg-white p-4 rounded-xl flex flex-col items-center justify-center">
               <CheckCircleIcon className="text-primary-color h-24 w-24 mb-10" />
-              <h2 className="text-black">YOUR RESERVATION HAS BEEN CONFIRMED</h2>
+              <h2 className="text-black">
+                YOUR RESERVATION HAS BEEN CONFIRMED
+              </h2>
               <p className="text-black">Check your email!</p>
             </div>
           </>

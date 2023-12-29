@@ -5,10 +5,9 @@ export const fetchAPI = async (date: string): Promise<string[]> => {
 
   // Simulate getting today's date and time
   const now = new Date();
-  const todayDate = now.toISOString().split("T")[0]; // Format as "YYYY-MM-DD"
+  const todayDate = now.toISOString().split("T")[0]; // "YYYY-MM-DD"
   const currentHour = now.getHours();
 
-  // Check if the requested date is before today
   if (date < todayDate) {
     // Return an empty array for days before today
     return [];
@@ -45,10 +44,11 @@ export const fetchAPI = async (date: string): Promise<string[]> => {
   return availableTimes;
 };
 
+// TODO: Fix formData...
 export const submitAPI = async (formData: FormData): Promise<boolean> => {
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  // Simulate a successful submission (you can replace this with your actual logic)
+  // Simulate a successful submission
   const isSubmissionSuccessful = Math.random() < 0.8; // 80% success rate
   return isSubmissionSuccessful;
 };

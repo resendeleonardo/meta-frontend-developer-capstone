@@ -4,11 +4,9 @@ import Footer from "../Footer";
 import BookingForm from "./BookingForm";
 import { fetchAPI, submitAPI } from "../../utils/bookingAPI";
 
-// Define the state and action types
-interface State {
+type State = {
   availableTimes: string[];
-}
-
+};
 type Action =
   | { type: "INITIALIZE_TIMES"; times: string[] }
   | { type: "UPDATE_TIMES"; times: string[] };
@@ -28,8 +26,6 @@ const reducer = (state: State, action: Action): State => {
 };
 
 const BookingPage = () => {
-
-  // Initialize state using useReducer
   const [state, dispatch] = useReducer(reducer, {
     availableTimes: [],
   });
@@ -45,23 +41,19 @@ const BookingPage = () => {
 
   const handleSubmit = async (formData: FormData) => {
     try {
-      // Handle the form submission logic here
       console.log("Form submitted from BookingPage:", {
         selectedDate: formData.get("date"),
         selectedTime: formData.get("time"),
         selectedNumberOfDiners: Number(formData.get("numberOfDiners")),
         selectedOccasion: formData.get("occasion"),
-        // Add other form data if needed
       });
 
       // Simulate a successful submission
       const isSubmissionSuccessful = await submitAPI(formData);
 
       if (isSubmissionSuccessful) {
-        // Handle successful submission, e.g., show a success message
         console.log("Form submitted successfully!");
       } else {
-        // Handle submission failure, e.g., show an error message
         console.log("Form submission failed.");
       }
     } catch (error) {
@@ -73,8 +65,8 @@ const BookingPage = () => {
   useEffect(() => {
     const initializeTimes = async () => {
       try {
-        // You can provide a default date or fetch it from somewhere else
-        const defaultDate = "2023-01-01";
+        // Providing a default date but it can be fetched from somewhere else...
+        const defaultDate = "2024-01-01";
         const times = await fetchAPI(defaultDate);
         dispatch({ type: "INITIALIZE_TIMES", times });
       } catch (error) {
@@ -88,11 +80,10 @@ const BookingPage = () => {
   return (
     <>
       <Header />
-      <div className="h-[72px]"></div> {/* <--- move to navbar */}
-      <BookingForm 
+      <BookingForm
         availableTimes={state.availableTimes}
         onDateSelect={handleDateSelection}
-        onSubmit={handleSubmit} 
+        onSubmit={handleSubmit}
       />
       <Footer />
     </>
