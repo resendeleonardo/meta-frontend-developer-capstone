@@ -49,7 +49,8 @@ const BookingPage = () => {
       });
 
       // Simulate a successful submission
-      const isSubmissionSuccessful = await submitAPI(formData);
+      // const isSubmissionSuccessful = await submitAPI(formData);
+      const isSubmissionSuccessful = await submitAPI();
 
       if (isSubmissionSuccessful) {
         console.log("Form submitted successfully!");
