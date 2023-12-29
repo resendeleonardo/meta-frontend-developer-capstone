@@ -110,6 +110,7 @@ const BookingForm = ({
                 onChange={handleDate}
                 className="p-2 rounded-xl cursor-pointer"
                 required={true}
+                min={new Date().toISOString().split('T')[0]}
               />
               {errors.date && <div className="text-red-500">{errors.date}</div>}
             </div>

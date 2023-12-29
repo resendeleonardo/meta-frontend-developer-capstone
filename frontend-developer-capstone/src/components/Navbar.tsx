@@ -112,7 +112,7 @@ const Navbar = () => {
                   </Link>
                   <Link
                     className="mt-2 font-semibold leading-6 text-slate-950 hover:text-slate-600"
-                    to={"/"}
+                    to={"/booking"}
                     onClick={() => {
                       setIsOpen(!isOpen);
                     }}
